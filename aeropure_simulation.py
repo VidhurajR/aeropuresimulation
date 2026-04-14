@@ -1,6 +1,7 @@
 import streamlit as st
 import numpy as np
 import matplotlib.pyplot as plt
+from num2words import num2words
 
 st.title("AeroPure Integrated Simulation")
 
@@ -50,6 +51,7 @@ total_revenue = (
     gypsum_output * gypsum_price +
     co2_input * carbon_credit
 )
+amount_words = num2words(total_revenue, lang='en_IN')
 
 # -----------------------------
 # RESULTS
@@ -60,6 +62,8 @@ st.write(f"Reaction Rate Constant (k): {k:.5f}")
 st.write(f"Methanol Produced: {methanol_output:.2f} tons/day")
 st.write(f"Gypsum Produced: {gypsum_output:.2f} tons/day")
 st.write(f"Total Revenue: {total_revenue:.2f} INR/day")
+st.write(f"In words: {amount_words} rupees")
+
 
 # -----------------------------
 # CHEMICAL REACTIONS
