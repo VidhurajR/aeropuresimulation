@@ -65,53 +65,59 @@ st.write(f"Gypsum Produced: {gypsum_output:.2f} tons/day")
 st.write(f"Total Revenue: {total_revenue:.2f} INR/day")
 
 # -----------------------------
+# DISPLAY ALL GRAPHS
+# -----------------------------
+st.subheader("Simulation Graphs")
+
+col1, col2 = st.columns(2)
+
 # GRAPH 1: KINETICS
-# -----------------------------
-st.subheader("Reaction Kinetics")
+with col1:
+    fig1, ax1 = plt.subplots()
+    ax1.plot(time, CO2_conc, label="CO2")
+    ax1.plot(time, Methanol_conc, label="Methanol")
+    ax1.set_xlabel("Time")
+    ax1.set_ylabel("Concentration")
+    ax1.set_title("Reaction Kinetics")
+    ax1.legend()
+    st.pyplot(fig1)
 
-fig1, ax1 = plt.subplots()
-ax1.plot(time, CO2_conc, label="CO2")
-ax1.plot(time, Methanol_conc, label="Methanol")
-ax1.set_xlabel("Time")
-ax1.set_ylabel("Concentration")
-ax1.set_title("CO2 to Methanol Conversion")
-ax1.legend()
-
-st.pyplot(fig1)
-
-# -----------------------------
 # GRAPH 2: TEMPERATURE EFFECT
-# -----------------------------
-st.subheader("Temperature Effect")
+with col2:
+    temp_range = np.linspace(250, 500, 50)
+    k_range = A * np.exp(-Ea / (R * temp_range))
+    conversion = 1 - np.exp(-k_range * 50)
 
-temp_range = np.linspace(250, 500, 50)
-k_range = A * np.exp(-Ea / (R * temp_range))
+    fig2, ax2 = plt.subplots()
+    ax2.plot(temp_range, conversion)
+    ax2.set_xlabel("Temperature (K)")
+    ax2.set_ylabel("Conversion")
+    ax2.set_title("Temperature vs Conversion")
+    st.pyplot(fig2)
 
-conversion = 1 - np.exp(-k_range * 50)
+# Second row
+col3, col4 = st.columns(2)
 
-fig2, ax2 = plt.subplots()
-ax2.plot(temp_range, conversion)
-ax2.set_xlabel("Temperature (K)")
-ax2.set_ylabel("Conversion")
-ax2.set_title("Temperature vs Conversion")
+# GRAPH 3: SOLAR vs METHANOL
+with col3:
+    solar_range = np.linspace(200, 1000, 20)
+    power_range = panel_efficiency * panel_area * solar_range
+    pf = power_range / (panel_efficiency * panel_area * 1000)
 
-st.pyplot(fig2)
+    methanol_range = co2_input * (1 - np.exp(-k * 50 * pf)) * 0.73
 
-# -----------------------------
-# GRAPH 3: POWER EFFECT
-# -----------------------------
-st.subheader("Solar Effect on Output")
+    fig3, ax3 = plt.subplots()
+    ax3.plot(solar_range, methanol_range)
+    ax3.set_xlabel("Solar Irradiance")
+    ax3.set_ylabel("Methanol Output")
+    ax3.set_title("Solar vs Methanol")
+    st.pyplot(fig3)
 
-solar_range = np.linspace(200, 1000, 20)
-power_range = panel_efficiency * panel_area * solar_range
-pf = power_range / (panel_efficiency * panel_area * 1000)
-
-methanol_range = co2_input * (1 - np.exp(-k * 50 * pf)) * 0.73
-
-fig3, ax3 = plt.subplots()
-ax3.plot(solar_range, methanol_range)
-ax3.set_xlabel("Solar Irradiance")
-ax3.set_ylabel("Methanol Output")
-ax3.set_title("Solar vs Methanol")
-
-st.pyplot(fig3)
+# GRAPH 4: POWER vs SOLAR
+with col4:
+    fig4, ax4 = plt.subplots()
+    ax4.plot(solar_range, power_range)
+    ax4.set_xlabel("Solar Irradiance")
+    ax4.set_ylabel("Power Output")
+    ax4.set_title("Solar vs Power")
+    st.pyplot(fig4)
