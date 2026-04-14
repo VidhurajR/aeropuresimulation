@@ -52,6 +52,7 @@ total_revenue = (
     co2_input * carbon_credit
 )
 amount_words = num2words(float(round(total_revenue, 2)), lang='en_IN')
+formatted_revenue = f"{total_revenue:,.2f}"
 
 # -----------------------------
 # RESULTS
@@ -61,7 +62,7 @@ st.write(f"Power Output: {power_output:.2f} W")
 st.write(f"Reaction Rate Constant (k): {k:.5f}")
 st.write(f"Methanol Produced: {methanol_output:.2f} tons/day")
 st.write(f"Gypsum Produced: {gypsum_output:.2f} tons/day")
-st.write(f"Total Revenue: {total_revenue:.2f} INR/day")
+st.write(f"Total Revenue: ₹{formatted_revenue}/day")
 st.write(f"In words: {amount_words} rupees")
 
 
