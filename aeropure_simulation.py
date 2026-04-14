@@ -7,9 +7,9 @@ st.title("AeroPure Integrated Simulation")
 # -----------------------------
 # USER INPUT
 # -----------------------------
-co2_input = st.slider("CO2 Input (tons/day)", 10, 200, 50)
-so2_input = st.slider("SO2 Input (tons/day)", 5, 100, 20)
-solar_irradiance = st.slider("Solar Irradiance (W/m^2)", 200, 1000, 800)
+co2_input = st.slider("CO2 Input (tons/day)", 10, 5000, 50)
+so2_input = st.slider("SO2 Input (tons/day)", 1, 100, 20)
+solar_irradiance = st.slider("Solar Irradiance (W/m^2)", 200, 10000, 800)
 temperature = st.slider("Reactor Temperature (K)", 250, 500, 350)
 
 # -----------------------------
