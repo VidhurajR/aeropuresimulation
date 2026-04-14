@@ -51,7 +51,7 @@ total_revenue = (
     gypsum_output * gypsum_price +
     co2_input * carbon_credit
 )
-amount_words = num2words(total_revenue, lang='en_IN')
+amount_words = num2words(int(round(total_revenue, 2)), lang='en_IN')
 
 # -----------------------------
 # RESULTS
